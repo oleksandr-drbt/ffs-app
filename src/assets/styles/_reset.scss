@@ -1,0 +1,205 @@
+@import 'variables';
+
+.btn {
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+
+  i {
+    font-size: .8125rem;
+  }
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-auto,
+.col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-auto,
+.col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md-auto,
+.col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-auto,
+.col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-auto {
+  width: 100%;
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: inset 0 0 0 50px #fff !important;
+  -webkit-text-fill-color: $gray !important;
+  color: $gray !important;
+}
+
+button {
+  outline: none !important;
+}
+
+.custom-checkbox .custom-control-label::before,
+.custom-checkbox .custom-control-label::after,
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after,
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  box-shadow: none !important;
+}
+
+.card {
+  border: none !important;
+  box-shadow: 0 1px 15px 1px rgba(69, 65, 78, 0.08) !important;
+  border-radius: 4px !important;
+}
+
+.multiselect__option--highlight {
+  background-color: $blue !important;
+
+  &:after {
+    background-color: $blue !important;
+  }
+}
+
+.multiselect__option--highlight.multiselect__option--selected {
+  background-color: $red !important;
+
+  &:after {
+    background-color: $red !important;
+  }
+}
+
+.change-input .multiselect__tags {
+  border-color: #ffaf00 !important;
+}
+
+.error-input .multiselect__tags {
+  border-color: #ff6258 !important;
+}
+
+.multiselect--active .multiselect__tags {
+  padding: 0 .75rem !important;
+}
+
+.multiselect__tags {
+  border: 1px solid #c3c3c3 !important;
+  font-size: 0.75rem !important;
+  padding: .895rem .75rem !important;
+  line-height: 14px !important;
+  font-weight: 300 !important;
+}
+
+.multiselect__content-wrapper {
+  border: 1px solid #c3c3c3 !important;
+}
+
+.multiselect__placeholder {
+  margin-bottom: 0 !important;
+  padding-top: 0;
+  color: #495057 !important;
+}
+
+.multiselect__select {
+  padding: 0 !important;
+}
+
+.multiselect__tag {
+  margin: 0;
+  background: #007bff !important;
+  margin-right: 5px !important;
+  margin-bottom: 0 !important;
+}
+
+.multiselect__tag-icon {
+  background: #007bff !important;
+}
+
+.multiselect__tag-icon:after {
+  color: white !important;
+}
+
+.multiselect--active .multiselect__tags {
+  padding: .895rem .75rem !important;
+}
+
+.multiselect--active .multiselect__input {
+  margin: 0;
+  width: 100% !important;
+  border: none !important;
+}
+
+.multiselect__content-wrapper {
+  font-size: 0.75rem !important;
+}
+
+.multiselect__input {
+  font-size: 12px !important;
+  padding: 0 !important;
+}
+
+.multiselect__single {
+  font-size: 12px !important;
+  margin: 0 !important;
+}
+
+.VueCarousel-navigation-button {
+  visibility: hidden;
+}
+
+.VueCarousel-navigation-button::before {
+  color: $gray;
+  position: absolute;
+  visibility: visible;
+  top: 8px;
+  height: 23px;
+  width: 16px;
+}
+
+.VueCarousel-navigation-prev::before {
+  content: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-caret-left\" viewBox=\"0 0 16 16\"><path d=\"M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z\"/></svg>");
+}
+
+.VueCarousel-navigation-next {
+  &::before {
+    content: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-caret-right\" viewBox=\"0 0 16 16\"><path d=\"M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z\"/></svg>");
+  }
+}
+
+.page-item .page-link:hover, .page-item .page-link:focus {
+  box-shadow: none;
+}
+
+.page-item .page-link {
+  font-size: .8rem;
+}
+
+.disable {
+  pointer-events: none;
+  cursor: default;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: $light-gray;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $blue;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $gray;
+}

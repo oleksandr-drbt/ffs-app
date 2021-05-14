@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900");
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+@font-face {
+  font-family: 'Segoe UI Light';
+  src: url('/fonts/SegoeUI-Light.eot');
+  src: url('/fonts/SegoeUI-Light.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/SegoeUI-Light.woff') format('woff'),
+  url('/fonts/SegoeUI-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('/fonts/Gothic.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+%font-family-poppins {
+  font-family: "Poppins", "Century Gothic", sans-serif !important;
+}
+
+%font-family-segoe-light {
+  font-family: "Segoe UI Light", sans-serif !important;
+}
+
+%font-family-gothic {
+  font-family: "Century Gothic", sans-serif !important;
+}
