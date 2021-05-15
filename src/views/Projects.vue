@@ -1,5 +1,5 @@
 <template>
-  <section class="my-projects">
+  <section class="projects">
     <div class="row bottom-margin">
       <div class="col-12 mb-3">
         <div class="card">
@@ -158,7 +158,7 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-import ProjectCard from "../components/Projects/ProjectCard";
+import ProjectCard from "../components/projects/ProjectCard";
 import { createProject, fetchCurrentUserProjects, removeProject, updateProject } from "../api/projectApi";
 import { ADD_SKILL, SET_TITLE } from "../store/mutationsTypes";
 

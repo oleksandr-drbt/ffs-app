@@ -59,16 +59,16 @@
         </div>
       </div>
     </div>
-    <button v-if="project.user.id !== user.id && (typeof interestedUsers.find((x) => x.id === user.id) === 'undefined')"
-            slot="footer" class="btn btn-primary modal-default-button"
-            @click="toBeInterested(project.id)">
-      Interested
-    </button>
-    <button v-if="project.user.id !== user.id && interestedUsers.find((x) => x.id === user.id)"
-            slot="footer" class="btn btn-danger modal-default-button"
-            @click="notInterested(project.id)">
-      Not interested
-    </button>
+<!--    <button v-if="project.user.id !== user.id && (typeof interestedUsers.find((x) => x.id === user.id) === 'undefined')"-->
+<!--            slot="footer" class="btn btn-primary modal-default-button"-->
+<!--            @click="toBeInterested(project.id)">-->
+<!--      Interested-->
+<!--    </button>-->
+<!--    <button v-if="project.user.id !== user.id && interestedUsers.find((x) => x.id === user.id)"-->
+<!--            slot="footer" class="btn btn-danger modal-default-button"-->
+<!--            @click="notInterested(project.id)">-->
+<!--      Not interested-->
+<!--    </button>-->
     <button slot="footer" class="btn btn-secondary modal-default-button" @click="$emit('onClose')">
       Close
     </button>

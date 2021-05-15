@@ -710,7 +710,7 @@ body {
       }
     }
 
-    .my-projects {
+    .projects {
       .create-project-form {
         form {
           label {
@@ -825,7 +825,7 @@ body {
     }
 
     .project-card {
-      .card {
+      & > .card {
         cursor: pointer;
 
         &:before {
@@ -866,14 +866,13 @@ body {
     }
 
     .tag-skills {
-      @extend %font-family-segoe-light;
       position: relative;
       display: inline-block;
       padding: 4px 15px;
       border-radius: 5px;
       margin-right: 10px;
       color: #fff;
-      font-weight: 600;
+      font-weight: 500;
       font-size: .75rem;
       line-height: 1;
       background: $blue;
@@ -882,10 +881,61 @@ body {
       overflow: hidden;
       max-width: 100%;
       text-overflow: ellipsis;
-      cursor: pointer;
     }
 
-    .users-list {
+    .search {
+      .search-form {
+        .search-input {
+          @extend %font-family-poppins;
+          color: #495057;
+          border-bottom-left-radius: 5px;
+          border-top-left-radius: 5px;
+          outline: none;
+          box-shadow: none;
+          border: 1px solid #c3c3c3;
+          border-right: none;
+          font-size: 0.75rem;
+          padding: 1.32rem 0.75rem;
+          line-height: 14px;
+          font-weight: 300;
+
+          &::placeholder {
+            color: #495057;
+          }
+        }
+
+        .search-clear-btn {
+          background-color: white;
+          border: 1px solid #c3c3c3;
+          border-left: none;
+          border-right: none;
+          outline: none;
+
+          i {
+            font-size: 20px;
+          }
+        }
+
+        .search-btn {
+          text-transform: uppercase;
+          font-weight: 500;
+          font-size: 12px;
+        }
+      }
+
+      label {
+        font-size: 12px;
+      }
+
+      .empty-search-results {
+        font-size: 13px;
+        color: $gray-700;
+      }
+
+      .search-results-count {
+        font-size: 13px;
+      }
+
       .user-card {
         .card-body {
           padding: 1.15rem;
@@ -907,6 +957,7 @@ body {
           @extend %font-family-segoe-light;
           font-size: .9375rem;
           font-weight: 600;
+          color: black;
         }
 
         .designation {

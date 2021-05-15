@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import EditUserInfoForm from "../components/Settings/EditUserInfoForm";
-import DeleteAccountForm from "../components/Settings/DeleteAccountForm";
-import ChangePasswordForm from "../components/Settings/ChangePasswordForm";
-import UserInfoCard from "../components/Settings/UserInfoCard";
+import EditUserInfoForm from "../components/settings/EditUserInfoForm";
+import DeleteAccountForm from "../components/settings/DeleteAccountForm";
+import ChangePasswordForm from "../components/settings/ChangePasswordForm";
+import UserInfoCard from "../components/settings/UserInfoCard";
 import { SET_TITLE } from "../store/mutationsTypes";
 
 export default {

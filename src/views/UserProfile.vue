@@ -120,7 +120,7 @@ export default {
   }),
   computed: {
     isStudent() {
-      return this.$store.getters.isStudent;
+      return this.user.role === 'student';
     },
   },
   created() {
