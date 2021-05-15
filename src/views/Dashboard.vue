@@ -1,95 +1,117 @@
 <template>
-  <section class="home">
-    <div class="row bottom-margin">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="app-card-header mb-2">
-              <h6 class="card-title">
-                Welcome, {{ user.first_name }} {{ user.last_name }}!
-              </h6>
-            </div>
-            <div v-if="projects.length > 0" class="recommended-block mt-4">
-              <h6 class="card-text">Recommended projects for You:</h6>
-              <div class="row">
-                <div v-for="(project, index) in projects" :key="index" class="col-12 col-md-6 project-card mb-3">
-                  <div class="card" @click="openProject(index)">
-                    <div class="card-body">
-                      <div class="app-card-header mb-2">
-                        <h6 class="card-title">{{ project.title }}</h6>
-                        <p class="card-text">Posted {{ project.posted_date }}</p>
-                      </div>
-                      <p class="card-description">{{ project.short_description }}</p>
-                      <div class="tags">
-                        <span v-for="(skill, index) in project.skills" :key="index" class="tag-skills">
-                          {{ skill }}
-                        </span>
-                      </div>
-                      <div class="card-additional">
-                        <p>Project type: <span>{{ project.project_type }}</span></p>
-                        <p>Number of students: <span>{{ project.number_of_students }}</span></p>
-                        <p>Project length: <span>{{ project.project_length }}</span></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <section class="dashboard">
+    <div class="bottom-margin">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="app-card-header mb-2">
+                <h6 class="card-title">
+                  Welcome, {{ user.first_name }} {{ user.last_name }}!
+                </h6>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <project-modal v-if="showModalWindow"
-                  :project="project"
-                  @close-modal-window="showModalWindow = false"
-                  @update="fetchRecommendedProjects">
-    </project-modal>
+    <div v-if="isStudent && acceptedProjects.length" class="row mt-4">
+      <div class="col-12 mb-2 mt-2">
+        <h4 class="dashboard-block-title">
+          The next {{ acceptedProjects.length }} requested projects were accepted:
+        </h4>
+      </div>
+      <project-card
+          v-for="project in acceptedProjects"
+          :project="project"
+          :key="project.id"
+          class="col-12"
+      />
+    </div>
+    <div v-if="isStudent && requestedProjects.length" class="row">
+      <div class="col-12 mb-2 mt-2">
+        <h4 class="dashboard-block-title">
+          You've requested next {{ requestedProjects.length }} following projects:
+        </h4>
+      </div>
+      <project-card
+          v-for="project in requestedProjects"
+          :project="project"
+          :key="project.id"
+          class="col-12"
+          @onCloseModal="fetchDashboard"
+      />
+    </div>
+    <div v-if="isTeacher && requestedProjects.length" class="row mt-4">
+      <div class="col-12 mb-2 mt-2">
+        <h4 class="dashboard-block-title">
+          The next {{ requestedProjects.length }} projects have requests from students:
+        </h4>
+      </div>
+      <project-card
+          v-for="project in requestedProjects"
+          :project="project"
+          :key="project.id"
+          is-acceptable
+          class="col-12"
+          @onCloseModal="fetchDashboard"
+      />
+    </div>
+    <div v-if="isTeacher && completedProjects.length" class="row">
+      <div class="col-12 mb-2 mt-2">
+        <h4 class="dashboard-block-title">
+          Completed projects ({{ completedProjects.length }}):
+        </h4>
+      </div>
+      <project-card
+          v-for="project in completedProjects"
+          :project="project"
+          :key="project.id"
+          class="col-12"
+      />
+    </div>
   </section>
 </template>
 
 <script>
-import axios from "axios";
-import ProjectModal from '../components/projects/ProjectModal';
+import ProjectCard from "../components/projects/ProjectCard";
+import { SET_TITLE } from "../store/mutationsTypes";
+import { getDashboard } from "../api/userApi";
 
 export default {
   name: "Dashboard",
   data: () => ({
-    project: {},
-    projects: [],
-    showModalWindow: false,
+    acceptedProjects: [],
+    requestedProjects: [],
+    completedProjects: [],
   }),
   components: {
-    ProjectModal,
+    ProjectCard,
   },
   created() {
-    this.$store.commit('setTitle', 'Dashboard');
+    this.$store.commit(SET_TITLE, 'Dashboard');
   },
   mounted() {
-    // this.fetchRecommendedProjects();
+    this.fetchDashboard();
   },
   computed: {
-    title() {
-      return this.$store.getters.getTitle;
-    },
     user() {
       return this.$store.getters.getUser;
     },
+    isStudent() {
+      return this.$store.getters.isStudent;
+    },
+    isTeacher() {
+      return this.$store.getters.isTeacher;
+    },
   },
   methods: {
-    fetchRecommendedProjects() {
-      axios({
-        method: 'get',
-        url: '/api/get-recommended-projects',
-        headers: {
-          "Authorization": `Bearer ${this.$store.getters.currentToken.access_token}`,
-        },
-      }).then((res) => {
-        this.projects = res.data;
+    fetchDashboard() {
+      getDashboard().then(({ data }) => {
+        this.acceptedProjects = data.acceptedProjects;
+        this.requestedProjects = data.requestedProjects;
+        this.completedProjects = data.completedProjects;
       });
-    },
-    openProject(index) {
-      this.showModalWindow = true;
-      this.project = this.projects[index];
     },
   },
 }
@@ -100,5 +122,8 @@ export default {
   .card-title {
     font-weight: 100;
   }
+}
+.dashboard-block-title {
+  font-size: 14px;
 }
 </style>

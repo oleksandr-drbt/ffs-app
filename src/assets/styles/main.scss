@@ -442,6 +442,16 @@ body {
         @extend %font-family-poppins;
         font-size: 12px;
       }
+
+      .card-text-event {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+
+        i {
+          font-size: 14px;
+        }
+      }
     }
 
     .settings {
@@ -826,8 +836,6 @@ body {
 
     .project-card {
       & > .card {
-        cursor: pointer;
-
         &:before {
           position: absolute;
           top: 0;
@@ -839,8 +847,13 @@ body {
           background: #007bff;
         }
 
+        &.done:before {
+          background: $success;
+        }
+
         .card-title {
           font-weight: 700;
+          cursor: pointer;
         }
       }
 
@@ -860,6 +873,19 @@ body {
 
         span {
           color: $black;
+          font-weight: 600;
+        }
+      }
+
+      .requested-users {
+        &-title, &-item {
+          font-size: 13px;
+        }
+
+        .accept-btn, .reject-btn {
+          font-size: 10px;
+          cursor: pointer;
+          text-transform: uppercase;
           font-weight: 600;
         }
       }

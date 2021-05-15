@@ -27,6 +27,7 @@
               :project="project"
               :key="project.id"
               class="col-12 project-card"
+              @onCloseModal="search"
           />
         </div>
       </div>

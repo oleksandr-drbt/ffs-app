@@ -33,3 +33,6 @@ export const changePassword = (oldPassword, newPassword) =>
 
 export const deleteCurrentUser = () =>
   axios.delete('/user/delete-account', { headers: { ...getAuthorizationHeader() } });
+
+export const getDashboard = () =>
+  axios.get('/user/dashboard', { headers: { ...getAuthorizationHeader() } });

@@ -51,24 +51,25 @@
             </span>
           </div>
         </div>
-        <div v-if="interestedUsers && interestedUsers.length > 0" class="users py-4">
-          <h6>Interested users:</h6>
-          <a v-for="user in interestedUsers" :key="user.id" :href="'/user/' + user.id" target="_blank">
-            <p class="m-0">{{ user.name }} {{ user.surname }}</p>
-          </a>
+        <div v-if="project.participants.length" class="users py-4">
+          <h6>Requested users:</h6>
+          <p class="m-0" v-for="{ id, first_name, last_name, is_accepted } in project.participants" :key="id">
+            <a :href="'/user/' + id" target="_blank">{{ first_name }} {{ last_name }}</a>
+            <i class="bi ml-2" :class="`${is_accepted ? 'bi-check-circle text-info' : 'bi-clock text-warning'}`"></i>
+          </p>
         </div>
       </div>
     </div>
-<!--    <button v-if="project.user.id !== user.id && (typeof interestedUsers.find((x) => x.id === user.id) === 'undefined')"-->
-<!--            slot="footer" class="btn btn-primary modal-default-button"-->
-<!--            @click="toBeInterested(project.id)">-->
-<!--      Interested-->
-<!--    </button>-->
-<!--    <button v-if="project.user.id !== user.id && interestedUsers.find((x) => x.id === user.id)"-->
-<!--            slot="footer" class="btn btn-danger modal-default-button"-->
-<!--            @click="notInterested(project.id)">-->
-<!--      Not interested-->
-<!--    </button>-->
+    <button v-if="!isCurrentUserProject && !isRequested && !isTaken"
+            slot="footer" class="btn btn-primary modal-default-button"
+            @click="requestProject(project.id)">
+      Request
+    </button>
+    <button v-if="!isCurrentUserProject && isRequested && !isTaken"
+            slot="footer" class="btn btn-danger modal-default-button"
+            @click="cancelRequestProject(project.id)">
+      Cancel request
+    </button>
     <button slot="footer" class="btn btn-secondary modal-default-button" @click="$emit('onClose')">
       Close
     </button>
@@ -76,8 +77,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import ModalWindow from '../ModalWindow';
+import { cancelRequestProject, requestProject } from "../../api/projectApi";
 
 export default {
   name: "ProjectModal",
@@ -99,48 +100,50 @@ export default {
     user() {
       return this.$store.getters.getUser;
     },
-    interestedUsers: {
-      get() {
-        return this.project.interested_users;
-      },
-      set(data) {
-        this.project.interested_users = data;
-        return this.project.interested_users;
-      },
+    isRequested() {
+      return !!this.project.participants.find(({ id, is_accepted }) => this.user.id === id && !is_accepted);
     },
+    isTaken() {
+      return !!this.project.participants.find(({ id, is_accepted }) => this.user.id === id && is_accepted);
+    },
+    isCurrentUserProject() {
+      return this.project.user.id === this.user.id;
+    }
   },
   components: {
     ModalWindow,
   },
   methods: {
-    toBeInterested(id) {
-      axios({
-        method: 'post',
-        url: '/api/to-be-interested',
-        headers: {
-          "Authorization": `Bearer ${this.$store.getters.currentToken.access_token}`,
-        },
-        data: {
-          id: id,
-        },
-      }).then((res) => {
-        this.$emit('update');
-        this.interestedUsers = res.data.interested_users;
-      });
+    requestProject(id) {
+     requestProject(id).then(({ data }) => {
+       this.$notify({
+         type: 'success',
+         title: 'Success',
+         text: data.message,
+       });
+       this.$emit('onClose');
+     }).catch(({ response: { data } }) => {
+       this.$notify({
+         type: 'error',
+         title: 'Error',
+         text: data.message || 'Something went wrong...',
+       });
+     });
     },
-    notInterested(id) {
-      axios({
-        method: 'post',
-        url: '/api/not-interested',
-        headers: {
-          "Authorization": `Bearer ${this.$store.getters.currentToken.access_token}`,
-        },
-        data: {
-          id: id,
-        },
-      }).then((res) => {
-        this.$emit('update');
-        this.interestedUsers = res.data.interested_users;
+    cancelRequestProject(id) {
+      cancelRequestProject(id).then(({ data }) => {
+        this.$notify({
+          type: 'success',
+          title: 'Success',
+          text: data.message,
+        });
+        this.$emit('onClose');
+      }).catch(({ response: { data } }) => {
+        this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: data.message || 'Something went wrong...',
+        });
       });
     },
   },
