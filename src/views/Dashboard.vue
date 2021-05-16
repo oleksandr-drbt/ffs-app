@@ -111,6 +111,12 @@ export default {
         this.acceptedProjects = data.acceptedProjects;
         this.requestedProjects = data.requestedProjects;
         this.completedProjects = data.completedProjects;
+      }).catch(({ response: { data } }) => {
+        this.$notify({
+          type: 'error',
+          title: 'Error',
+          text: data.message || 'Something went wrong...',
+        });
       });
     },
   },

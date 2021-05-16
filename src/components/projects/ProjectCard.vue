@@ -31,10 +31,12 @@
               </span>
             </div>
             <div v-if="isAcceptable && project.participants.length" class="requested-users py-2">
-              <h6 class="requested-users-title">Requested users:</h6>
+              <h6 class="requested-users-title">Requested students:</h6>
               <p class="requested-users-item m-0 mb-1 d-flex align-items-center"
                  v-for="{ id, first_name, last_name, is_accepted } in project.participants" :key="id">
-                <a :href="'/user/' + id" target="_blank">{{ first_name }} {{ last_name }}</a>
+                <router-link :to="'/user/' + id" target="_blank">
+                  {{ first_name }} {{ last_name }}
+                </router-link>
                 <span v-if="!is_accepted" class="accept-btn text-success ml-2" @click="acceptUser(project.id, id)">
                   Accept
                 </span>
@@ -49,21 +51,28 @@
               <p>Number of students: <span>{{ studentsCounts.get(project.students_count) }}</span></p>
               <p>Project length: <span>{{ durations.get(project.duration) }}</span></p>
             </div>
+            <div v-if="isAcceptable" class="card-additional d-flex justify-content-end">
+              <button class="btn btn-success done-btn" @click="openReviewModal">
+                Done
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <review-modal v-if="isReviewModalShown" :project="project" @onClose="closeReviewModal" />
     <project-modal v-if="isProjectModalShown" :project="project" @onClose="closeProjectModal" />
   </div>
 </template>
 
 <script>
 import ProjectModal from "./ProjectModal";
+import ReviewModal from "./ReviewModal";
 import { acceptUser, removeUserRequest } from "../../api/projectApi";
 
 export default {
   name: "ProjectCard",
-  components: { ProjectModal },
+  components: { ReviewModal, ProjectModal },
   props: {
     project: {
       type: Object,
@@ -79,6 +88,7 @@ export default {
   },
   data: () => ({
     isProjectModalShown: false,
+    isReviewModalShown: false,
   }),
   computed: {
     projectTypes() {
@@ -106,6 +116,13 @@ export default {
     },
     closeProjectModal() {
       this.isProjectModalShown = false;
+      this.$emit('onCloseModal');
+    },
+    openReviewModal() {
+      this.isReviewModalShown = true;
+    },
+    closeReviewModal() {
+      this.isReviewModalShown = false;
       this.$emit('onCloseModal');
     },
     acceptUser(projectId, userId) {

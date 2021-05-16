@@ -8,7 +8,7 @@
               <div class="d-flex justify-content-around">
                 <div class="profile-info d-flex align-items-center">
                   <div class="profile-img-wrapper">
-                    <img class="profile-img img-fluid" :src="user.avatarUrl"
+                    <img class="profile-img img-fluid" :src="user.avatarUrl || '/img/default.png'"
                          onerror="this.src = '/img/default.png'" alt="avatar">
                   </div>
                   <div class=" pl-4">
@@ -82,21 +82,12 @@
                   </p>
                 </div>
                 <div class="works-list px-4">
-                  <div v-for="({ id, title, completed_date, review, owner }) in user.projects" :key="id"
-                       :class="{'works-border': index !== countProjects - 1 && countProjects !== 1}"
-                       class="works-item px-5 pb-4">
-                    <div class="work-badge">
-                      <i class="bi bi-check-circle"></i>
-                    </div>
-                    <div class="d-flex align-items-center mb-2 justify-content-between">
-                      <h5 class="work-name">{{ title }}</h5>
-                      <small class="work-date">{{ completed_date }}</small>
-                    </div>
-                    <p class="pr-5 mr-3 mb-1">{{ review }}</p>
-                    <router-link :to="'/user/' + owner.id">
-                      <p class="owner">{{ owner.first_name }} {{ owner.last_name }}</p>
-                    </router-link>
-                  </div>
+                  <completed-project-card
+                      v-for="(project, index) in user.projects"
+                      :project="project"
+                      :key="project.id"
+                      :is-border-shown="index !== countProjects - 1 && countProjects !== 1"
+                  />
                 </div>
               </div>
             </div>
@@ -110,9 +101,11 @@
 <script>
 import { getUserById } from "../api/userApi";
 import { SET_TITLE } from "../store/mutationsTypes";
+import CompletedProjectCard from "../components/projects/CompletedProjectCard";
 
 export default {
   name: "UserProfile",
+  components: { CompletedProjectCard },
   data: () => ({
     user: {},
     countWorks: 0,
@@ -139,6 +132,7 @@ export default {
         avatarUrl: data.avatarUrl || '/img/default.png',
       };
       this.countWorks = data.works.length;
+      this.countProjects = data.projects.length;
       const title = `${data.first_name} ${data.last_name}`;
       this.$store.commit(SET_TITLE, title);
     },

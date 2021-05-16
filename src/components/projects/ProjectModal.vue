@@ -52,7 +52,7 @@
           </div>
         </div>
         <div v-if="project.participants.length" class="users py-4">
-          <h6>Requested users:</h6>
+          <h6>Requested students:</h6>
           <p class="m-0" v-for="{ id, first_name, last_name, is_accepted } in project.participants" :key="id">
             <a :href="'/user/' + id" target="_blank">{{ first_name }} {{ last_name }}</a>
             <i class="bi ml-2" :class="`${is_accepted ? 'bi-check-circle text-info' : 'bi-clock text-warning'}`"></i>

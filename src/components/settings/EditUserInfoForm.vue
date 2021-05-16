@@ -54,7 +54,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label for="phone">Position</label>
+              <label for="position">Position</label>
               <input v-model="position.value" @change="setIsChanged(position)"
                      :class="{'change-input': position.isChanged, 'error-input': errors.first('position')}"
                      type="text" class="form-control" id="position" name="position" maxlength="80"
@@ -75,7 +75,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-12">
-              <label for="phone">About</label>
+              <label for="description">About</label>
               <textarea v-model="description.value" @change="setIsChanged(description)"
                         :class="{'change-input': description.isChanged, 'error-input': errors.first('description')}"
                         v-validate="'max:255'" data-vv-validate-on="change" rows="4"

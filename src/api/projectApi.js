@@ -42,3 +42,6 @@ export const acceptUser = (projectId, userId) =>
 
 export const removeUserRequest = (projectId, userId) =>
   axios.delete(`/projects/${projectId}/remove-request/?userId=${userId}`, { headers: { ...getAuthorizationHeader() } });
+
+export const completeProject = (projectId, reviews = []) =>
+  axios.post(`/projects/${projectId}/complete`, { reviews }, { headers: { ...getAuthorizationHeader() } });
