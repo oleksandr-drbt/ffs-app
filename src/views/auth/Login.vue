@@ -61,6 +61,7 @@
 <script>
 import { login } from "../../api/authApi";
 import { LOGIN_SUCCESS } from "../../store/mutationsTypes";
+import { FETCH_SKILLS } from "../../store/actionsTypes";
 
 export default {
   name: "Login",
@@ -79,6 +80,7 @@ export default {
         login(this.email, this.password)
             .then(({ data }) => {
               this.$store.commit(LOGIN_SUCCESS, data);
+              this.$store.dispatch(FETCH_SKILLS);
               this.$router.push('/');
             })
             .catch(() => {

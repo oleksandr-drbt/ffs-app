@@ -18,8 +18,8 @@
       </form>
     </div>
     <div class="col-12 mb-5">
-      <label for="tags-select">Additionally select tags:</label>
-      <multiselect v-model="selectedSkills" :options="skillsList" placeholder="Select tags"
+      <label for="tags-select">Additionally select skills:</label>
+      <multiselect v-model="selectedSkills" :options="skillsList" placeholder="Select skills"
                    id="tags-select" :multiple="true" :taggable="true"
                    :max-height="250" :closeOnSelect="false">
       </multiselect>

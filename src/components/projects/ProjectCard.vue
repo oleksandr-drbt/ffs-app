@@ -24,7 +24,7 @@
                 Accepted
               </p>
             </div>
-            <p class="card-description">{{ project.description.substr(1, 250) }}</p>
+            <p class="card-description">{{ project.description }}</p>
             <div class="tags">
               <span v-for="({ id, name }) in project.skills" :key="id" class="tag-skills">
                 {{ name }}

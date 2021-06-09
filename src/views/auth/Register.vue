@@ -134,6 +134,7 @@
 <script>
 import { register } from "../../api/authApi";
 import { LOGIN_SUCCESS } from "../../store/mutationsTypes";
+import { FETCH_SKILLS } from "../../store/actionsTypes";
 
 export default {
   name: "Register",
@@ -157,6 +158,7 @@ export default {
         register(this.firstName, this.lastName, this.email, this.role, this.password, this.passwordConfirm)
             .then(({ data }) => {
               this.$store.commit(LOGIN_SUCCESS, data);
+              this.$store.dispatch(FETCH_SKILLS);
               this.$router.push('/');
             })
             .catch(() => {
